@@ -1,0 +1,39 @@
+<!-->
+The store object has two key methods which you need to know about.
+The getState method allows you to inspect the current state held
+in the store. And the dispatch method allows you to run actions
+through your reducer, modifying the store. For example:
+
+Actions:
+var ADD_REPOSITORY = 'ADD_REPOSITORY';
+var addRepository = function(repository) {
+    return {
+        type: ADD_REPOSITORY,
+        repository: repository
+    }
+};
+
+Reducer:
+var repositoryReducer = function(state, action) {
+    state = state || initialRepositoryState;
+    if (action.type === actions.ADD_REPOSITORY) {
+        return state.concat({
+            name: action.repository,
+            rating: null
+        });
+    }
+
+dispath commands:
+var actions = require('./actions');
+> var store = require('./store');
+> store.dispatch(actions.addRepository('joe'));
+{ type: 'ADD_REPOSITORY', repository: 'joe' }
+> store.getState();
+[ { name: 'joe', rating: null } ]
+
+Dispatching actions to the store is the sole way in which you
+modify state using Redux, so you should get familiar with the flow of:
+
+Creating an action
+Handling it in a reducer
+Triggering it using dispatch

@@ -1,0 +1,53 @@
+<!--in this folder you will put your test scripts.
+Here is a sample test file (find context for this file in ThinkfulProjects/react-tester)
+
+var React = require('react');
+var TestUtils = require('react-addons-test-utils');
+var should = require('chai').should();
+
+var Image = require('../image');
+
+describe('Image component', function() {
+    it('Renders the image and description',  function() {
+        var url = "http://www.example.com/image.png";
+        var description = "Example description";
+
+        var renderer = TestUtils.createRenderer();
+        renderer.render(<Image url={url} description={description} />);
+        var result = renderer.getRenderOutput();
+        result.props.className.should.equal('gallery-image');
+
+        var img = result.props.children[0];
+        img.type.should.equal('img');
+        img.props.src.should.equal(url);
+        img.props.alt.should.equal(description);
+
+        var p = result.props.children[1];
+        p.type.should.equal('p');
+        p.props.children.should.equal(description);
+    });
+});
+
+
+In order to help you test components, React provides the Test Utilities addon.
+This allows you to render a version of your component without needing access
+to the DOM. Take a look at the test case. First, you create an instance of the
+renderer. You then render an Image component, providing an example URL and
+description.
+
+Next, you call the getRenderOutput method of the renderer. This returns
+the rendered React component. Using this you can check out the type and
+props of the elements rendered by your component. So here, we check that
+the correct class name is set, that there is an image with the correct src
+and alt attributes, and that there is a <p> tag containing the description.
+
+Try running the test using npm test. You should see that it passes with
+flying colors.
+
+The renderer performs what is known as shallow rendering. This means
+that it will only render components one level deep. So if you try to
+test the Gallery component, it will not render the Image components;
+it will just leave them there with their props in place. This ensures
+that your tests run quickly, and enforces the rule that you should only
+test a single component at a time.
+-->
