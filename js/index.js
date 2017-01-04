@@ -3,10 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 var Provider = require('react-redux').Provider;
-var router = require('react-router');
-var Router = router.Router;
-var Route = router.Route;
-var hashHistory = router.hashHistory;
+import {Router, Route, hashHistory, Link} from 'react-router';
 
 
 import store from './store';

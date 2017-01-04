@@ -1,4 +1,4 @@
-import actions from '../actions';
+import {getUser} from "../actions";
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ export class Login extends Component {
     this.state = {showModal: false };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
+    this.submitAction = this.submitAction.bind(this);
   }
 
   close() {
@@ -19,16 +20,24 @@ export class Login extends Component {
   open() {
     this.setState({ showModal: true });
   }
+  submitAction(event) {
+    event.preventDefault();
+    let username = ReactDOM.findDOMNode(this.username);
+    let password = ReactDOM.findDOMNode(this.password);
+    var payload = {"username": username.value, "password": password.value};
+    console.log(payload);
+    this.props.dispatch(getUser(payload));
+  }
   render() {
     return (
       <div className="Login">
-          <Form horizontal>
+          <Form horizontal onSubmit={this.submitAction}>
             <FormGroup controlId="formHorizontalEmail">
               <Col componentClass={ControlLabel} sm={2}>
                 Email
               </Col>
               <Col sm={10}>
-                <FormControl type="email" placeholder="Email" />
+                <FormControl ref={node => this.username = node} type="email" placeholder="Email" />
               </Col>
             </FormGroup>
 
@@ -37,7 +46,7 @@ export class Login extends Component {
                 Password
               </Col>
               <Col sm={10}>
-                <FormControl type="password" placeholder="Password" />
+                <FormControl ref={node => this.password = node} type="password" placeholder="Password" />
               </Col>
             </FormGroup>
 

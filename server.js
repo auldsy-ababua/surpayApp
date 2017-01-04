@@ -1,7 +1,8 @@
 "use strict"
 
-var addSurvey = require('survey');
+var Survey = require('./models/surveyModel');
 var express = require('express');
+var mongoose = require('mongoose');
 var unirest = require('unirest');
 var bodyParser = require('body-parser');
 var path = require('path');
@@ -80,7 +81,7 @@ if (require.main === module) {
 }
 
 var User = require('./models/userModel').User;
-var UserGame = require('./models/surveyModel').Survey;
+var Survey = require('./models/surveyModel').Survey;
 
 //endpoints
 
@@ -88,7 +89,7 @@ var bcrypt = require('bcryptjs');
 
 //signin endpoint
 //(create new user) POST (name, email, password, city)
-app.post('/users', jsonParser, function(req, res) {
+app.post('/users', function(req, res) {
   console.log(req.body);
     if (!req.body) {
         return res.status(400).json({
@@ -143,6 +144,7 @@ app.post('/users', jsonParser, function(req, res) {
 
     bcrypt.genSalt(10, function(err, salt) {
         if (err) {
+          console.log(err);
             return res.status(500).json({
                 message: 'Internal server error'
             });
@@ -150,6 +152,7 @@ app.post('/users', jsonParser, function(req, res) {
 
         bcrypt.hash(password, salt, function(err, hash) {
             if (err) {
+              console.log(err);
                 return res.status(500).json({
                     message: 'Internal server error'
                 });
@@ -164,6 +167,7 @@ app.post('/users', jsonParser, function(req, res) {
 
             user.save(function(err) {
                 if (err) {
+                  console.log(err);
                     return res.status(500).json({
                         message: 'Internal server error'
                     });
@@ -177,19 +181,28 @@ app.post('/users', jsonParser, function(req, res) {
 
 app.use(passport.initialize());
 
-app.get('/hidden', jsonParser, passport.authenticate('basic', {
+app.get('/users', jsonParser, passport.authenticate('basic', {
     session: false
 }), function(req, res) {
-    res.json({
-        message: 'This is a test'
-    });
+      res.json(req.user);
+});
+
+app.get('/surveys', jsonParser, passport.authenticate('basic', {
+    session: false
+}), function(req, res) {
+    var surveys = [];
+    Survey.find({userID: req.user._id}).then(function(surveys){
+      res.json({
+          surveys
+      });
+    })
 });
 
 
 app.post("/addsurvey", function(req, res) {
   console.log(req.body);
   req.body.answers.forEach(function(answer) {
-
+    
   });
   res.status(201).json({});
 });

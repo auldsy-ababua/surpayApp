@@ -21,14 +21,20 @@ module.exports = {
         filename: filename.join('.'),
     },
     devtool: 'source-map',
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: ["", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
+    },
     module: {
         loaders: [
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 loader: 'babel',
-            }
+            },
+            { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
         ]
     },
+    
     plugins: plugins
 };

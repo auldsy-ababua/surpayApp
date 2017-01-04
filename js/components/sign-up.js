@@ -1,4 +1,4 @@
-import actions from '../actions';
+import {postUser} from "../actions";
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ export class SignUp extends Component {
     this.state = {showModal: false };
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
+    this.submitAction = this.submitAction.bind(this);
   }
 
   close() {
@@ -19,17 +20,26 @@ export class SignUp extends Component {
   open() {
     this.setState({ showModal: true });
   }
+  submitAction(event) {
+    event.preventDefault();
+    let username = ReactDOM.findDOMNode(this.username);
+    let name = ReactDOM.findDOMNode(this.name);
+    let password = ReactDOM.findDOMNode(this.password);
+    var payload = {"name": name.value, "username": username.value, "password": password.value};
+    console.log(payload);
+    this.props.dispatch(postUser(payload));
+  }
   render() {
     return (
       <div className="SignUp">
-          <Form horizontal>
+          <Form horizontal onSubmit={this.submitAction}>
 
             <FormGroup controlId="formHorizontalName">
               <Col componentClass={ControlLabel} sm={2}>
                 Name
               </Col>
               <Col sm={10}>
-                <FormControl type="name" placeholder="Name" />
+                <FormControl ref={node => this.name = node} type="name" placeholder="Name" />
               </Col>
             </FormGroup>
 
@@ -38,7 +48,7 @@ export class SignUp extends Component {
                 Email
               </Col>
               <Col sm={10}>
-                <FormControl type="email" placeholder="Email" />
+                <FormControl ref={node => this.username = node} type="email" placeholder="Email" />
               </Col>
             </FormGroup>
 
@@ -47,7 +57,7 @@ export class SignUp extends Component {
                 Password
               </Col>
               <Col sm={10}>
-                <FormControl type="password" placeholder="Password" />
+                <FormControl ref={node => this.password = node} type="password" placeholder="Password" />
               </Col>
             </FormGroup>
 

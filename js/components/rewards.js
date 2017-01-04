@@ -2,6 +2,9 @@ var connect = require('react-redux').connect;
 import React, { Component } from 'react';
 import store from '../store';
 import actions from '../actions';
+import ReactDOM from 'react-dom';
+
+
 import {  } from 'react-bootstrap';
 
 
