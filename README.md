@@ -1,7 +1,7 @@
 # surpayApp
 
-API's used:
-1. Google Maps API - https://developers.google.com/maps/
+API's used:<br>
+1. Google Maps API - https://developers.google.com/maps/<br>
 2. Google Places Autocomplete - https://developers.google.com/places/web-service/autocomplete
 
 SUMMARY:<br> 
