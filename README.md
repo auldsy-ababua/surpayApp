@@ -7,11 +7,11 @@ API's used:
 Screenshot(s) of your app. This makes your app description much easier to understand.
 
 SUMMARY: 
-After signing ip for an account or logging into his account, the user may use the search functionality to find a speciifc restuarant he or she has dined at, and can click the link to take the survey for that location. The user is then broaght to a form where he/she answers questions about the experience of the meal as well as a final comments section. After hitting the submit button, the user may view the entry in their profile section and see if that location is offering any deals or discounts in exchange for that survey.
+After signing ip for an account or logging into his account, the user may use the search functionality to find a speciifc restuarant he or she has dined at, and can click the link to take the survey for that location. The user is then broaght to a form where he/she answers questions about the experience of the meal as well as a final comments section. After hitting the submit button, the user may view the entry in their profile section and see if that location is offering any deals or discounts in exchange for that survey.sdfa
 
 Future features:
 1. Separate sign in for restuarant owners where they can pay SurPay for the survey data collected and offer those surveyed a voucher in exchange for their feedback. 
 
-Technology Used:
-1. Server-side: Node/Express, mongo db, Socket.io, 
+Technology Used:<br>
+1. Server-side: Node/Express, mongo db, Socket.io,<br> 
 2. Client-side: Bootstrap-React
