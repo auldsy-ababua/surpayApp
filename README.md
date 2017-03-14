@@ -14,5 +14,5 @@ After signing up for an account or logging into his account, the user may use th
 1. Separate sign in for restuarant owners where they can pay SurPay for the survey data collected and offer those surveyed a voucher in exchange for their feedback. 
 
 ### _TECHNOLOGY USED_:<br>
-1. Server-side: Node/Express, mongo db, Socket.io,<br> 
-2. Client-side: Bootstrap-React
+1. Server-side: Node/Express, MongoDB, Socket.io<br> 
+2. Client-side: Bootstrap-React, LESS
