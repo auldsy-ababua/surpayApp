@@ -1,4 +1,4 @@
-# surpayApp
+# SurPay - Get Rewarded For Your Feedback
 
 ### _URL_:<br>
 https://surpay-app.herokuapp.com/
