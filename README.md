@@ -15,4 +15,4 @@ After signing up for an account or logging into his account, the user may use th
 
 ### _TECHNOLOGY USED_:<br>
 1. Server-side: Node/Express, MongoDB, Socket.io, [OAuth 2.0](https://oauth.net/2/)<br> 
-2. Client-side: HTML5, [React-Bootstrap] (https://react-bootstrap.github.io/), LESS
+2. Client-side: HTML5, LESS, [React-Bootstrap] (https://react-bootstrap.github.io/), jQuery
