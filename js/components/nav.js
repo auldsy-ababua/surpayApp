@@ -18,8 +18,13 @@ export class Navigation extends Component {
     }
     console.log("hello");
   }
+  logout() {
+    delete localStorage["basicStrategy"];
+    window.location = "/";
+  }
   render() {
     let rightNav;
+    let leftNav;
     if (!this.props.user) {
       rightNav = (<Nav pullRight>
         <OverlayTrigger
@@ -46,17 +51,23 @@ export class Navigation extends Component {
             >
               <NavItem eventKey={2} href="#">Sign-Up</NavItem>
         </OverlayTrigger>
-      </Nav>)
+      </Nav>);
+      leftNav = (<Nav bsStyle="pills" activeKey={1} onSelect={handleSelect}>
+                   <NavItem eventKey={1} href="#/">Home</NavItem>
+                   <NavItem eventKey={2} href="#/search" title="Search">Search</NavItem>
+                 </Nav>)
     } else if (this.props.user) {
-      rightNav = (<Nav pullRight><h4>Welcome, {this.props.user.name}</h4></Nav>);
+
+      rightNav = (<Nav pullRight><NavItem>Welcome, {this.props.user.name}</NavItem><NavItem eventKey={1} onClick={this.logout}>Logout</NavItem></Nav>);
+      leftNav = (<Nav bsStyle="pills" activeKey={1} onSelect={handleSelect}>
+                   <NavItem eventKey={1} href="#/">Home</NavItem>
+                   <NavItem eventKey={2} href="#/search" title="Search">Search Restaurant</NavItem>
+                   <NavItem eventKey={3} href="#/rewards" title="Rewards">Rewards</NavItem>
+                 </Nav>);
     }
     return (
       <Navbar>
-        <Nav bsStyle="pills" activeKey={1} onSelect={handleSelect}>
-          <NavItem eventKey={1} href="#/">Home</NavItem>
-          <NavItem eventKey={2} href="#/search" title="Search">Search</NavItem>
-          <NavItem eventKey={3} href="#/rewards" title="Rewards">Rewards</NavItem>
-        </Nav>
+        {leftNav}
         {rightNav}
       </Navbar>
     );

@@ -5,7 +5,7 @@ var SurveySchema = new mongoose.Schema ({
     userID: {
       type: String,
       required: true
-  },
+    },
     answers: [{
       question: String,
       answer: String
@@ -13,6 +13,12 @@ var SurveySchema = new mongoose.Schema ({
     date: {
       type: Date,
       required: true
+    },
+    establishment: {
+      name: String,
+      address: String,
+      id: String,
+      image: String
     }
 });
 

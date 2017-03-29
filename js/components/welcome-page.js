@@ -2,7 +2,7 @@ var connect = require('react-redux').connect;
 import React, { Component } from 'react';
 import store from '../store';
 import actions from '../actions';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { Jumbotron, Button, Image } from 'react-bootstrap';
 
 export class WelcomePage extends Component {
   constructor(props) {
@@ -10,12 +10,8 @@ export class WelcomePage extends Component {
   }
   render() {
     return (
-      <Jumbotron>
-        <div className='container'>
-          <h1>Welcome to SurPay!</h1>
-          <p>The app that gets you discounts on your bill in exchange for answering a few short questions about your dining experience!</p>
-        </div>
-      </Jumbotron>
+      <div id="homePage" class="WelcomePage">
+      </div>
     );
   }
 };

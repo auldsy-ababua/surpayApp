@@ -27,16 +27,21 @@ exports.postUser = postUser;
 
 var GET_USER = 'GET_USER';
 var getUser = function(payload) {
+  console.log("your get user action is working", localStorage["basicStrategy"]);
+  if (!localStorage["basicStrategy"] || localStorage["basicStrategy"] == "null") {
+    localStorage["basicStrategy"] = 'Basic '+btoa(payload.username+':'+payload.password);
+  }
     return {
         type: GET_USER,
         promise: fetch("/users",
           {method:"GET",
             headers: {
-              'Authorization': 'Basic '+btoa(payload.username+':'+payload.password),
+              'Authorization': localStorage["basicStrategy"],
               'Content-Type': 'application/x-www-form-urlencoded'
             }
           }
         ).then(function(res) {
+          console.log("its responding!");
           return res.json();
         })
     };
@@ -44,25 +49,28 @@ var getUser = function(payload) {
 exports.GET_USER = GET_USER;
 exports.getUser = getUser;
 
+
 //Get and Post Survey actions are for presenting the user with a new survey and logging the answers into the DB.
 
 var POST_SURVEY = 'POST_SURVEY';
-var payload = {answers:[{question: 1, answers: 5}, {question: 2, answers: 5}, {question: 3, answers: 5}, {question: 4, answers: 5}, {question: 5, answers: ""}]};
-var postSurvey = function() {
+//var payload = {answers:[{question: 1, answers: 5}, {question: 2, answers: 5}, {question: 3, answers: 5}, {question: 4, answers: 5}, {question: 5, answers: ""}]};
+var postSurvey = function(answers) {
     var data = new FormData();
-    data.append( "json", JSON.stringify( payload ) );
+    data.append( "json", JSON.stringify( answers ) );
     return {
         type: POST_SURVEY,
         promise: fetch("/addsurvey",
           {method:"POST",
             headers: {
              'Accept': 'application/json',
-             'Authorization': 'Basic '+btoa(payload.username+':'+payload.password),
+             'Authorization': localStorage["basicStrategy"],
              'Content-Type': 'application/json'
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(answers)
           }
-        )
+        ).then(function(res) {
+          return res.json();
+        })
     };
 };
 exports.POST_SURVEY = POST_SURVEY;
@@ -76,6 +84,7 @@ var getSurvey = function() {
           {method:"GET",
             headers: {
              'Accept': 'application/json',
+             'Authorization': localStorage["basicStrategy"],
              'Content-Type': 'application/json'
             }
           }

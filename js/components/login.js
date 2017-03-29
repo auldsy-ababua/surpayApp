@@ -33,19 +33,13 @@ export class Login extends Component {
       <div className="Login">
           <Form horizontal onSubmit={this.submitAction}>
             <FormGroup controlId="formHorizontalEmail">
-              <Col componentClass={ControlLabel} sm={2}>
-                Email
-              </Col>
-              <Col sm={10}>
+              <Col sm={12}>
                 <FormControl ref={node => this.username = node} type="email" placeholder="Email" />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalPassword">
-              <Col componentClass={ControlLabel} sm={2}>
-                Password
-              </Col>
-              <Col sm={10}>
+              <Col sm={12}>
                 <FormControl ref={node => this.password = node} type="password" placeholder="Password" />
               </Col>
             </FormGroup>

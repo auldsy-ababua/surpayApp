@@ -18,8 +18,20 @@ var SurpayApp = function(state, action) {
           surveyError: null
         }),
         finish: s => ({ ...s, isLoading: false }),
-        failure: s => ({ ...s, surveyError: payload }),
-        success: s => ({ ...s, survey: payload }),
+        failure: s => ({ ...s, surveyError: action.payload }),
+        success: s => ({ ...s, survey: action.payload }),
+      });
+    case GET_SURVEY:
+      console.log(action);
+      return handle(state, action, {
+        start: s => ({
+          ...s,
+          isLoading: true,
+          surveyError: null
+        }),
+        finish: s => ({ ...s, isLoading: false }),
+        failure: s => ({ ...s, surveysError: action.payload }),
+        success: s => ({ ...s, surveys: action.payload }),
       });
       case POST_USER:
         return handle(state, action, {
@@ -29,8 +41,8 @@ var SurpayApp = function(state, action) {
             surveyError: null
           }),
           finish: s => ({ ...s, isLoading: false }),
-          failure: s => ({ ...s, userError: payload }),
-          success: s => ({ ...s, user: payload }),
+          failure: s => ({ ...s, userError: action.payload }),
+          success: s => ({ ...s, user: action.payload }),
         });
       case GET_USER:
         console.log(action);
@@ -41,20 +53,8 @@ var SurpayApp = function(state, action) {
             surveyError: null
           }),
           finish: s => ({ ...s, isLoading: false }),
-          failure: s => ({ ...s, userError: payload }),
-          success: s => ({ ...s, user: payload }),
-        });
-      case GET_SURVEY:
-        console.log(action);
-        return handle(state, action, {
-          start: s => ({
-            ...s,
-            isLoading: true,
-            surveyError: null
-          }),
-          finish: s => ({ ...s, isLoading: false }),
-          failure: s => ({ ...s, userError: payload }),
-          success: s => ({ ...s, user: payload }),
+          failure: s => ({ ...s, userError: action.payload }),
+          success: s => ({ ...s, user: action.payload }),
         });
     default:
         return state;

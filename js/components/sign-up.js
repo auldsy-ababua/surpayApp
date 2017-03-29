@@ -35,27 +35,18 @@ export class SignUp extends Component {
           <Form horizontal onSubmit={this.submitAction}>
 
             <FormGroup controlId="formHorizontalName">
-              <Col componentClass={ControlLabel} sm={2}>
-                Name
-              </Col>
               <Col sm={10}>
                 <FormControl ref={node => this.name = node} type="name" placeholder="Name" />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalEmail">
-              <Col componentClass={ControlLabel} sm={2}>
-                Email
-              </Col>
               <Col sm={10}>
                 <FormControl ref={node => this.username = node} type="email" placeholder="Email" />
               </Col>
             </FormGroup>
 
             <FormGroup controlId="formHorizontalPassword">
-              <Col componentClass={ControlLabel} sm={2}>
-                Password
-              </Col>
               <Col sm={10}>
                 <FormControl ref={node => this.password = node} type="password" placeholder="Password" />
               </Col>

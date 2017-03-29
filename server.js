@@ -199,12 +199,24 @@ app.get('/surveys', jsonParser, passport.authenticate('basic', {
 });
 
 
-app.post("/addsurvey", function(req, res) {
+app.post("/addsurvey", jsonParser, passport.authenticate('basic', {
+    session: false
+}), function(req, res) {
   console.log(req.body);
+  var newSurvey = new Survey();
+  newSurvey.date = new Date();
+  newSurvey.userID = req.user._id;
   req.body.answers.forEach(function(answer) {
-    
+    newSurvey.answers.push(answer);
   });
-  res.status(201).json({});
+  newSurvey.establishment = req.body.establishment;
+  newSurvey.save();
+  res.status(201).json(newSurvey);
+});
+
+app.get("/logout", function (req, res) {
+  req.logout();
+  res.redirect("/");
 });
 
 app.use('*', function(req, res) {

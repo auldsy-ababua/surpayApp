@@ -11,8 +11,8 @@ html {
   position: relative;
 }
 /*---WelcomePage---*/
-.WelcomePage {
-  background: url(images/welcome-page-pic.jpg) no-repeat;
+#homePage {
+  background-image: url(images/welcome-page-pic.jpg) no-repeat;
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -48,7 +48,7 @@ html {
   transition: all .5s ease;
 }
 #map {
-  height: 200px;
+  height: 600px;
 }
 /*---MOBILE---*/
 /*# sourceMappingURL=react-profile-page.1.0.0.css.map */

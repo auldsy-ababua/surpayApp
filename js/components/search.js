@@ -71,24 +71,11 @@ export class Search extends Component {
             ].join(' ');
           }
           var content = `<div><strong> ${place.name} </strong><br> ${address}
-                         <br><a href="#/survey/${place.place_id}">Take Survey</a>
-                        `;
+                         <br><a href="#/survey/${place.place_id}?name=${place.name}&address=${place.formatted_address}">Take Survey</a></div>`;
                         console.log(place);
           infowindow.setContent(content);
           infowindow.open(map, marker);
         });
-
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
-        function setupClickListener(id, types) {
-          var radioButton = document.getElementById(id);
-          radioButton.addEventListener('click', function() {
-            autocomplete.setTypes(types);
-          });
-        }
-
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-establishment', ['establishment']);
   }
   handleFormSubmit(event) {
     event.preventDefault()
@@ -110,13 +97,6 @@ export class Search extends Component {
         <input id="pac-input" className="controls" type="text"
         placeholder="Enter a location" />
         <div id="type-selector" className="controls">
-
-          <input type="radio" name="type" id="changetype-all" />
-          <label >All</label>
-
-          <input type="radio" name="type" id="changetype-establishment" />
-          <label >Establishments</label>
-
         </div>
 
         <div id="map"></div>
