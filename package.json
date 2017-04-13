@@ -9,6 +9,7 @@
     "build": "npm run clean && npm run mkdir && npm run build:html && npm run build:css && npm run build:js",
     "watch": "npm run watch:html & npm run watch:css & npm run watch:js",
     "clean": "rm -rf build",
+    "start": "node server.js",
     "build:html": "npm run clean:html && cp index.html build/ && cp -R images build/",
     "watch:html": "npm run build:html && chokidar index.html -c 'npm run build:html'",
     "clean:html": "rm -f build/index.html",
@@ -42,6 +43,7 @@
   "dependencies": {
     "@types/react": "^0.14.55",
     "@types/react-dom": "^0.14.20",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
@@ -59,7 +61,8 @@
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-pack": "^0.1.4",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "unirest": "^0.5.1"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.0.0-beta.17",

@@ -1,4 +1,2 @@
-exports.DATABASE_URL = process.env.DATABASE_URL ||
-                        global.DATABASE_URL ||
-                             'mongodb://localhost/surpayapp': 'mongodb://localhost/surpayapp-dev');
+exports.DATABASE_URL = 'mongodb://surpayApp:tonto989@ds141088.mlab.com:41088/surpay_app';
  exports.PORT = process.env.PORT || 8181;
