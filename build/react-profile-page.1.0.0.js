@@ -164,7 +164,7 @@
 	  )
 	);
 	
-	//Use ReactDOM.render to render the Game component into the <div>
+	//Use ReactDOM.render to render the component into the <div>
 	document.addEventListener('DOMContentLoaded', function () {
 	  _reactDom2.default.render(_react2.default.createElement(
 	    Provider,
@@ -60417,7 +60417,15 @@
 	  _createClass(WelcomePage, [{
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement('div', { id: 'homePage', 'class': 'WelcomePage' });
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'homePage' },
+	        _react2.default.createElement(
+	          'div',
+	          { id: 'homeImage' },
+	          _react2.default.createElement(_reactBootstrap.Image, { src: '/images/welcome-page-pic.jpg', responsive: true })
+	        )
+	      );
 	    }
 	  }]);
 	

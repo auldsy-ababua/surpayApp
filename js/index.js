@@ -53,7 +53,7 @@ var routes = (
 
 
 
-//Use ReactDOM.render to render the Game component into the <div>
+//Use ReactDOM.render to render the component into the <div>
 document.addEventListener('DOMContentLoaded', function() {
     ReactDOM.render(
       <Provider store={store}>

@@ -10,8 +10,12 @@ export class WelcomePage extends Component {
   }
   render() {
     return (
-      <div id="homePage" class="WelcomePage">
+      <div id="homePage">
+        <div id="homeImage">
+          <Image src="/images/welcome-page-pic.jpg" responsive />
+        </div>
       </div>
+
     );
   }
 };
