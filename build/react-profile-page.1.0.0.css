@@ -10,6 +10,15 @@ html {
   min-height: 100%;
   position: relative;
 }
+/*---NAV---*/
+.navbar ul {
+  display: inline-block;
+  margin-right: 14px;
+}
+.navbar li {
+  float: none;
+  display: inline-block;
+}
 /*---WelcomePage---*/
 #homePage {
   background-image: url(images/welcome-page-pic.jpg) no-repeat;
