@@ -11,8 +11,8 @@ export class WelcomePage extends Component {
   render() {
     return (
       <div id="homePage">
-        <div id="homeImage">
-          <Image src="/images/welcome-page-pic.jpg" responsive />
+        <div class="hero">
+          
         </div>
       </div>
 

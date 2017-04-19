@@ -60420,11 +60420,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'homePage' },
-	        _react2.default.createElement(
-	          'div',
-	          { id: 'homeImage' },
-	          _react2.default.createElement(_reactBootstrap.Image, { src: '/images/welcome-page-pic.jpg', responsive: true })
-	        )
+	        _react2.default.createElement('div', { 'class': 'hero' })
 	      );
 	    }
 	  }]);
