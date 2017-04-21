@@ -10,9 +10,12 @@ export class WelcomePage extends Component {
   }
   render() {
     return (
-      <div id="homePage">
-        <div class="hero">
-          
+      <div className="homePage">
+        <div className="heroImage">
+          <div className="transbox">
+            <h1>Welcome to SurPay</h1>
+            <h2>The Site that Pays You for Your Opinions!</h2>
+          </div>
         </div>
       </div>
 

@@ -60419,8 +60419,25 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { id: 'homePage' },
-	        _react2.default.createElement('div', { 'class': 'hero' })
+	        { className: 'homePage' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'heroImage' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'transbox' },
+	            _react2.default.createElement(
+	              'h1',
+	              null,
+	              'Welcome to SurPay'
+	            ),
+	            _react2.default.createElement(
+	              'h2',
+	              null,
+	              'The Site that Pays You for Your Opinions!'
+	            )
+	          )
+	        )
 	      );
 	    }
 	  }]);

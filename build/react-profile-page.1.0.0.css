@@ -20,16 +20,44 @@ html {
   display: inline-block;
 }
 /*---WelcomePage---*/
-#homePage {
+.homePage {
   margin: auto;
   padding: 0;
   height: 400px;
 }
-.hero {
+.heroImage {
   background-image: url(/images/welcome-page-pic.jpg);
   height: 400px;
+  position: relative;
   background-size: cover;
   background-position: center right;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.transbox {
+  margin: 0 auto;
+  width: 88%;
+  height: 65%;
+  background-color: #ffffff;
+  opacity: 0.6;
+  /* For IE8 and earlier */
+}
+div.transbox p {
+  margin: 5%;
+  font-weight: bold;
+  color: #000000;
+}
+.transbox h1,
+h2 {
+  text-align: center;
+  font-family: alfa slab one;
+}
+.transbox h1 {
+  padding-top: 56px;
+}
+.transbox h2 {
+  padding-bottom: 30px;
 }
 /*---Footer---*/
 .Footer {
@@ -62,4 +90,9 @@ html {
   height: 600px;
 }
 /*---MOBILE---*/
+@media only screen and (max-width: 427px) {
+  .transbox h1 {
+    padding-top: 15px;
+  }
+}
 /*# sourceMappingURL=react-profile-page.1.0.0.css.map */
