@@ -17,6 +17,16 @@ export class WelcomePage extends Component {
             <h2>The Site that Pays You for Your Opinions!</h2>
           </div>
         </div>
+        <div className="boxContainer">
+          <div className="boxLeft homeInstruction">
+            <h3 className="flex-center-vertically">Get started above by signing up or logging into your account. You can search for resaurants in your area and leave your thoughts in the survey section.</h3>
+          </div>
+          <div className="boxRight homeInstruction">
+            <h3>Demo signin credentials:</h3>
+            <h3>UN: demo [at] gmail [dot] com</h3>
+            <h3>PW: Hello123</h3>
+          </div>
+        </div>
       </div>
 
     );

@@ -60437,6 +60437,38 @@
 	              'The Site that Pays You for Your Opinions!'
 	            )
 	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'boxContainer' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'boxLeft homeInstruction' },
+	            _react2.default.createElement(
+	              'h3',
+	              { className: 'flex-center-vertically' },
+	              'Get started above by signing up or logging into your account. You can search for resaurants in your area and leave your thoughts in the survey section.'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'boxRight homeInstruction' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'Demo signin credentials:'
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'UN: demo [at] gmail [dot] com'
+	            ),
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'PW: Hello123'
+	            )
+	          )
 	        )
 	      );
 	    }

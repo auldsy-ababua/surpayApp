@@ -40,7 +40,7 @@ div.transbox {
   width: 88%;
   height: 65%;
   background-color: #ffffff;
-  opacity: 0.6;
+  opacity: 0.85;
   /* For IE8 and earlier */
 }
 div.transbox p {
@@ -58,6 +58,38 @@ h2 {
 }
 .transbox h2 {
   padding-bottom: 30px;
+}
+.boxContainer {
+  font-family: alfa slab one;
+  display: block;
+  width: 98%;
+  height: 55%;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.boxLeft {
+  float: left;
+}
+.boxLeft h3 {
+  text-align: center;
+  margin-right: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.boxRight {
+  float: right;
+}
+.boxRight h3 {
+  margin-right: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+.homeInstruction {
+  border: aqua 5px solid;
+  display: inline;
+  width: 49%;
+  height: 80%;
 }
 /*---Footer---*/
 .Footer {
@@ -90,9 +122,14 @@ h2 {
   height: 600px;
 }
 /*---MOBILE---*/
-@media only screen and (max-width: 427px) {
+@media only screen and (min-width: 320px) {
   .transbox h1 {
     padding-top: 15px;
   }
+  .boxLeft h3 {
+    font-size: 14px;
+    margin: 0 4px 0 4px;
+  }
 }
+/**  TABLET LAYOUT  **/
 /*# sourceMappingURL=react-profile-page.1.0.0.css.map */
