@@ -60442,32 +60442,16 @@
 	          'div',
 	          { className: 'boxContainer' },
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'boxLeft homeInstruction' },
-	            _react2.default.createElement(
-	              'h3',
-	              { className: 'flex-center-vertically' },
-	              'Get started above by signing up or logging into your account. You can search for resaurants in your area and leave your thoughts in the survey section.'
-	            )
+	            _reactBootstrap.Panel,
+	            { header: 'Getting Started' },
+	            'Above, you can sign up or log in to your account. You can search for resaurants in your area and leave your thoughts in the survey section.'
 	          ),
 	          _react2.default.createElement(
-	            'div',
-	            { className: 'boxRight homeInstruction' },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Demo signin credentials:'
-	            ),
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'UN: demo [at] gmail [dot] com'
-	            ),
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'PW: Hello123'
-	            )
+	            _reactBootstrap.Panel,
+	            { header: 'Demonstration Credentials' },
+	            'UN: demo@gmail.com',
+	            _react2.default.createElement('br', null),
+	            'PW: Hello123 (case sensitive)'
 	          )
 	        )
 	      );

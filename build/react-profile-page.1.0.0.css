@@ -68,28 +68,12 @@ h2 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.boxLeft {
-  float: left;
-}
-.boxLeft h3 {
+.panel-heading {
   text-align: center;
-  margin-right: 6px;
-  margin-left: 6px;
-  vertical-align: middle;
+  background-color: #e47b7b;
 }
-.boxRight {
-  float: right;
-}
-.boxRight h3 {
-  margin-right: 6px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-.homeInstruction {
-  border: aqua 5px solid;
-  display: inline;
-  width: 49%;
-  height: 80%;
+.panel2 {
+  background-color: #a6b5ea;
 }
 /*---Footer---*/
 .Footer {

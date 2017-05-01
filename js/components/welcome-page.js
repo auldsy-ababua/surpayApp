@@ -2,7 +2,7 @@ var connect = require('react-redux').connect;
 import React, { Component } from 'react';
 import store from '../store';
 import actions from '../actions';
-import { Jumbotron, Button, Image } from 'react-bootstrap';
+import { Jumbotron, Button, Image, Panel } from 'react-bootstrap';
 
 export class WelcomePage extends Component {
   constructor(props) {
@@ -18,14 +18,14 @@ export class WelcomePage extends Component {
           </div>
         </div>
         <div className="boxContainer">
-          <div className="boxLeft homeInstruction">
-            <h3 className="flex-center-vertically">Get started above by signing up or logging into your account. You can search for resaurants in your area and leave your thoughts in the survey section.</h3>
-          </div>
-          <div className="boxRight homeInstruction">
-            <h3>Demo signin credentials:</h3>
-            <h3>UN: demo [at] gmail [dot] com</h3>
-            <h3>PW: Hello123</h3>
-          </div>
+          <Panel header="Getting Started">
+            Above, you can sign up or log in to your account. You can search for resaurants in your area and leave your thoughts in the survey section.
+          </Panel>
+          <Panel header="Demonstration Credentials">
+            UN: demo@gmail.com
+            <br></br>
+            PW: Hello123 (case sensitive)
+          </Panel>
         </div>
       </div>
 
