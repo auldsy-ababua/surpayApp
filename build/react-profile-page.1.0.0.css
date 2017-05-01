@@ -1,7 +1,8 @@
 
 body {
   font-family: Arial;
-  height: 100%;
+  height: 855px;
+  margin-bottom: 49px;
 }
 html {
   height: 100%;
@@ -107,6 +108,16 @@ h2 {
 }
 /*---MOBILE---*/
 @media only screen and (min-width: 320px) {
+  body {
+    height: 794px;
+    margin-bottom: 49px;
+  }
+  .container {
+    padding-right: 0;
+    padding-left: 16px;
+    margin-right: 0;
+    margin-left: 0;
+  }
   .transbox h1 {
     padding-top: 15px;
   }
@@ -116,4 +127,39 @@ h2 {
   }
 }
 /**  TABLET LAYOUT  **/
+@media only screen and (min-width: 768px) {
+  body {
+    height: 736px;
+  }
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .transbox h1 {
+    padding-top: 41px;
+  }
+  .transbox h2 {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}
+@media only screen and (min-width: 1099px) {
+  body {
+    height: 715px;
+  }
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .transbox h1 {
+    padding-top: 56px;
+  }
+  .transbox h2 {
+    padding-bottom: 30px;
+  }
+}
 /*# sourceMappingURL=react-profile-page.1.0.0.css.map */
