@@ -80401,11 +80401,6 @@
 	            _reactBootstrap.NavItem,
 	            { eventKey: 1, href: '#/' },
 	            'Home'
-	          ),
-	          _react2.default.createElement(
-	            _reactBootstrap.NavItem,
-	            { eventKey: 2, href: '#/search', title: 'Search' },
-	            'Search'
 	          )
 	        );
 	      } else if (this.props.user) {
@@ -80417,7 +80412,8 @@
 	            _reactBootstrap.NavItem,
 	            null,
 	            'Welcome, ',
-	            this.props.user.name
+	            this.props.user.name,
+	            '!'
 	          ),
 	          _react2.default.createElement(
 	            _reactBootstrap.NavItem,

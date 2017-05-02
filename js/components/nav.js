@@ -54,11 +54,10 @@ export class Navigation extends Component {
       </Nav>);
       leftNav = (<Nav bsStyle="pills" activeKey={1} onSelect={handleSelect}>
                    <NavItem eventKey={1} href="#/">Home</NavItem>
-                   <NavItem eventKey={2} href="#/search" title="Search">Search</NavItem>
                  </Nav>)
     } else if (this.props.user) {
 
-      rightNav = (<Nav pullRight><NavItem>Welcome, {this.props.user.name}</NavItem><NavItem eventKey={1} onClick={this.logout}>Logout</NavItem></Nav>);
+      rightNav = (<Nav pullRight><NavItem>Welcome, {this.props.user.name}!</NavItem><NavItem eventKey={1} onClick={this.logout}>Logout</NavItem></Nav>);
       leftNav = (<Nav bsStyle="pills" activeKey={1} onSelect={handleSelect}>
                    <NavItem eventKey={1} href="#/">Home</NavItem>
                    <NavItem eventKey={2} href="#/search" title="Search">Search Restaurant</NavItem>
