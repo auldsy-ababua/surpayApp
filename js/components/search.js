@@ -15,7 +15,7 @@ export class Search extends Component {
   }
   componentDidMount() {
     var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -33.8688, lng: 151.2195},
+          center: {lat: 32.7157, lng: -117.1611},
           zoom: 13
         });
         var input = /** @type {!HTMLInputElement} */(
