@@ -60543,7 +60543,11 @@
 	      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 	      map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 	
-	      var autocomplete = new google.maps.places.Autocomplete(input);
+	      var options = {
+	        types: ['restaurant']
+	      };
+	
+	      var autocomplete = new google.maps.places.Autocomplete(input, options);
 	      autocomplete.bindTo('bounds', map);
 	
 	      var infowindow = new google.maps.InfoWindow();
