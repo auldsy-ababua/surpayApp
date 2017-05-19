@@ -13,12 +13,12 @@ export class Rewards extends Component {
   }
   render() {
     console.log(this.props.surveys);
-    console.log("Working!");
     var surveyItems;
     if (this.props.surveys) {
       let surveys = this.props.surveys.surveys;
-      console.log("surveyItem:",surveys.length);
+      console.log("survey Length:",surveys.length);
       if(surveys.length > 0) {
+        console.log("Reword exists");
           surveyItems = Object.keys(surveys).map(function(survey, index) {
             var surveyItem = surveys[index];
             if (!surveyItem.establishment) {
@@ -31,7 +31,8 @@ export class Rewards extends Component {
             );
           });
       } else {
-        <EmptyReward/>
+        console.log("Empty Reword");
+        return(<EmptyReward/>);
       }
     }
 
