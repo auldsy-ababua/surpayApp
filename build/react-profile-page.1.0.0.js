@@ -93,11 +93,11 @@
 	
 	var _rewards2 = _interopRequireDefault(_rewards);
 	
-	var _nav = __webpack_require__(696);
+	var _nav = __webpack_require__(697);
 	
 	var _nav2 = _interopRequireDefault(_nav);
 	
-	var _footer = __webpack_require__(697);
+	var _footer = __webpack_require__(698);
 	
 	var _footer2 = _interopRequireDefault(_footer);
 	
@@ -60533,33 +60533,57 @@
 	  _createClass(Search, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var map = new google.maps.Map(document.getElementById('map'), {
+	
+	      var map, places, infoWindow;
+	      var markers = [];
+	      var autocomplete;
+	      var countryRestrict = { 'country': 'us' };
+	      var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
+	      var hostnameRegexp = new RegExp('^https?://.+?/');
+	      var infoWindowContent = '';
+	
+	      map = new google.maps.Map(document.getElementById('map'), {
 	        center: { lat: 32.7157, lng: -117.1611 },
-	        zoom: 13
+	        zoom: 13,
+	        mapTypeControl: false,
+	        panControl: false,
+	        zoomControl: false,
+	        streetViewControl: false
 	      });
-	      var input = /** @type {!HTMLInputElement} */document.getElementById('pac-input');
+	
+	      infoWindow = new google.maps.InfoWindow({
+	        content: document.getElementById('info-content')
+	      });
+	
+	      var input = document.getElementById('pac-input');
+	
+	      var options = {
+	        types: ['(cities)'],
+	        componentRestrictions: { country: 'us' }
+	      };
 	
 	      var types = document.getElementById('type-selector');
 	      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-	      map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+	      //map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 	
-	      var options = {
-	        types: ['restaurant']
-	      };
+	      console.log("Input : ", input);
 	
-	      var autocomplete = new google.maps.places.Autocomplete(input, options);
-	      autocomplete.bindTo('bounds', map);
+	      var autocomplete = new google.maps.places.Autocomplete(document.getElementById('pac-input'), options);
+	      //autocomplete.bindTo('bounds', map);
+	      autocomplete.setOptions({ strictBounds: true });
+	      places = new google.maps.places.PlacesService(map);
 	
-	      var infowindow = new google.maps.InfoWindow();
+	      //var infowindow = new google.maps.InfoWindow();
 	      var marker = new google.maps.Marker({
 	        map: map,
 	        anchorPoint: new google.maps.Point(0, -29)
 	      });
 	
 	      autocomplete.addListener('place_changed', function () {
-	        infowindow.close();
+	        //infowindow.close();
 	        marker.setVisible(false);
 	        var place = autocomplete.getPlace();
+	        console.log("Placess : ", place);
 	        if (!place.geometry) {
 	          // User entered the name of a Place that was not suggested and
 	          // pressed the Enter key, or the Place Details request failed.
@@ -60568,31 +60592,162 @@
 	        }
 	
 	        // If the place has a geometry, then present it on a map.
+	
 	        if (place.geometry.viewport) {
 	          map.fitBounds(place.geometry.viewport);
 	        } else {
 	          map.setCenter(place.geometry.location);
 	          map.setZoom(17); // Why 17? Because it looks good.
 	        }
-	        marker.setIcon( /** @type {google.maps.Icon} */{
+	
+	        var search = {
+	          bounds: map.getBounds(),
+	          types: ['restaurant']
+	        };
+	
+	        places.nearbySearch(search, function (results, status) {
+	          if (status === google.maps.places.PlacesServiceStatus.OK) {
+	            //Clear markers
+	
+	            for (var i = 0; i < markers.length; i++) {
+	              if (markers[i]) {
+	                markers[i].setMap(null);
+	              }
+	            }
+	            // Create a marker for each hotel found, and
+	            // assign a letter of the alphabetic to each marker icon.
+	            for (var i = 0; i < results.length; i++) {
+	
+	              var markerLetter = String.fromCharCode('A'.charCodeAt(0) + i % 26);
+	              var markerIcon = MARKER_PATH + markerLetter + '.png';
+	              // Use marker animation to drop the icons incrementally on the map.
+	              markers[i] = new google.maps.Marker({
+	                position: results[i].geometry.location,
+	                animation: google.maps.Animation.DROP,
+	                icon: markerIcon
+	              });
+	              // If the user clicks a hotel marker, show the details of that hotel
+	              // in an info window.
+	              markers[i].placeResult = results[i];
+	              google.maps.event.addListener(markers[i], 'click', function () {
+	                var marker = this;
+	                places.getDetails({ placeId: marker.placeResult.place_id }, function (place, status) {
+	                  if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	                    return;
+	                  }
+	                  var address = '';
+	                  if (place.address_components) {
+	                    address = [place.address_components[0] && place.address_components[0].short_name || '', place.address_components[1] && place.address_components[1].short_name || '', place.address_components[2] && place.address_components[2].short_name || ''].join(' ');
+	                  }
+	
+	                  infoWindow.open(map, marker);
+	                  document.getElementById('info-content').innerHTML = '<b>Place Name :</b> ' + place.name + '<br><b>Address :</b> ' + address + '<br><br><a href="#/survey/' + place.place_id + '?name=' + place.name + '&address=' + place.formatted_address + '">Take Survey</a>';
+	                });
+	              });
+	              setTimeout(markers[i].setMap(map), i * 100);
+	              //addResult(results[i], i);
+	            }
+	          }
+	        });
+	        //========================================================
+	
+	        /**if (place.geometry.viewport) {
+	          map.fitBounds(place.geometry.viewport);
+	        } else {
+	          map.setCenter(place.geometry.location);
+	          map.setZoom(17);  // Why 17? Because it looks good.
+	        }
+	        marker.setIcon(({
 	          url: place.icon,
 	          size: new google.maps.Size(71, 71),
 	          origin: new google.maps.Point(0, 0),
 	          anchor: new google.maps.Point(17, 34),
 	          scaledSize: new google.maps.Size(35, 35)
-	        });
+	        }));
 	        marker.setPosition(place.geometry.location);
 	        marker.setVisible(true);
-	
-	        var address = '';
+	         var address = '';
 	        if (place.address_components) {
-	          address = [place.address_components[0] && place.address_components[0].short_name || '', place.address_components[1] && place.address_components[1].short_name || '', place.address_components[2] && place.address_components[2].short_name || ''].join(' ');
+	          address = [
+	            (place.address_components[0] && place.address_components[0].short_name || ''),
+	            (place.address_components[1] && place.address_components[1].short_name || ''),
+	            (place.address_components[2] && place.address_components[2].short_name || '')
+	          ].join(' ');
 	        }
-	        var content = '<div><strong> ' + place.name + ' </strong><br> ' + address + '\n                         <br><a href="#/survey/' + place.place_id + '?name=' + place.name + '&address=' + place.formatted_address + '">Take Survey</a></div>';
-	        console.log(place);
+	        var content = `<div><strong> ${place.name} </strong><br> ${address}
+	                       <br><a href="#/survey/${place.place_id}?name=${place.name}&address=${place.formatted_address}">Take Survey</a></div>`;
+	                      console.log(place);
 	        infowindow.setContent(content);
-	        infowindow.open(map, marker);
+	        infowindow.open(map, marker);*/
 	      });
+	    }
+	
+	    // Load the place information into the HTML elements used by the info window.
+	
+	  }, {
+	    key: 'buildIWContent',
+	    value: function buildIWContent(place) {
+	      document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' + 'src="' + place.icon + '"/>';
+	      document.getElementById('iw-url').innerHTML = '<b><a href="' + place.url + '">' + place.name + '</a></b>';
+	      document.getElementById('iw-address').textContent = place.vicinity;
+	
+	      if (place.formatted_phone_number) {
+	        document.getElementById('iw-phone-row').style.display = '';
+	        document.getElementById('iw-phone').textContent = place.formatted_phone_number;
+	      } else {
+	        document.getElementById('iw-phone-row').style.display = 'none';
+	      }
+	
+	      // Assign a five-star rating to the hotel, using a black star ('&#10029;')
+	      // to indicate the rating the hotel has earned, and a white star ('&#10025;')
+	      // for the rating points not achieved.
+	      if (place.rating) {
+	        var ratingHtml = '';
+	        for (var i = 0; i < 5; i++) {
+	          if (place.rating < i + 0.5) {
+	            ratingHtml += '&#10025;';
+	          } else {
+	            ratingHtml += '&#10029;';
+	          }
+	          document.getElementById('iw-rating-row').style.display = '';
+	          document.getElementById('iw-rating').innerHTML = ratingHtml;
+	        }
+	      } else {
+	        document.getElementById('iw-rating-row').style.display = 'none';
+	      }
+	
+	      // The regexp isolates the first part of the URL (domain plus subdomain)
+	      // to give a short URL for displaying in the info window.
+	      if (place.website) {
+	        var fullUrl = place.website;
+	        var website = hostnameRegexp.exec(place.website);
+	        if (website === null) {
+	          website = 'http://' + place.website + '/';
+	          fullUrl = website;
+	        }
+	        document.getElementById('iw-website-row').style.display = '';
+	        document.getElementById('iw-website').textContent = website;
+	      } else {
+	        document.getElementById('iw-website-row').style.display = 'none';
+	      }
+	    }
+	  }, {
+	    key: 'clearResults',
+	    value: function clearResults() {
+	      var results = document.getElementById('results');
+	      while (results.childNodes[0]) {
+	        results.removeChild(results.childNodes[0]);
+	      }
+	    }
+	  }, {
+	    key: 'clearMarkers',
+	    value: function clearMarkers() {
+	      for (var i = 0; i < markers.length; i++) {
+	        if (markers[i]) {
+	          markers[i].setMap(null);
+	        }
+	      }
+	      markers = [];
 	    }
 	  }, {
 	    key: 'handleFormSubmit',
@@ -60619,7 +60774,8 @@
 	        _react2.default.createElement('input', { id: 'pac-input', className: 'controls', type: 'text',
 	          placeholder: 'Enter a location' }),
 	        _react2.default.createElement('div', { id: 'type-selector', className: 'controls' }),
-	        _react2.default.createElement('div', { id: 'map' })
+	        _react2.default.createElement('div', { id: 'map' }),
+	        _react2.default.createElement('div', { id: 'info-content' })
 	      );
 	    }
 	  }]);
@@ -65210,6 +65366,8 @@
 	});
 	exports.Rewards = undefined;
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(1);
@@ -65229,6 +65387,10 @@
 	var _surveyItem = __webpack_require__(585);
 	
 	var _surveyItem2 = _interopRequireDefault(_surveyItem);
+	
+	var _emptyReward = __webpack_require__(696);
+	
+	var _emptyReward2 = _interopRequireDefault(_emptyReward);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -65258,24 +65420,33 @@
 	      var _this2 = this;
 	
 	      console.log(this.props.surveys);
-	
 	      var surveyItems;
 	      if (this.props.surveys) {
-	        (function () {
+	        var _ret = function () {
 	          var surveys = _this2.props.surveys.surveys;
-	          surveyItems = Object.keys(surveys).map(function (survey, index) {
-	            var surveyItem = surveys[index];
-	            console.log(surveyItem);
-	            if (!surveyItem.establishment) {
-	              return;
-	            }
-	            return _react2.default.createElement(
-	              'li',
-	              { key: index },
-	              _react2.default.createElement(_surveyItem2.default, { name: surveyItem.establishment.name, date: surveyItem.date, address: surveyItem.establishment.address })
-	            );
-	          });
-	        })();
+	          console.log("survey Length:", surveys.length);
+	          if (surveys.length > 0) {
+	            console.log("Reword exists");
+	            surveyItems = Object.keys(surveys).map(function (survey, index) {
+	              var surveyItem = surveys[index];
+	              if (!surveyItem.establishment) {
+	                return;
+	              }
+	              return _react2.default.createElement(
+	                'li',
+	                { key: index },
+	                _react2.default.createElement(_surveyItem2.default, { name: surveyItem.establishment.name, date: surveyItem.date, address: surveyItem.establishment.address })
+	              );
+	            });
+	          } else {
+	            console.log("Empty Reword");
+	            return {
+	              v: _react2.default.createElement(_emptyReward2.default, null)
+	            };
+	          }
+	        }();
+	
+	        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
 	      }
 	
 	      return _react2.default.createElement(
@@ -80292,6 +80463,89 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.EmptyReward = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(32);
+	
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	var _reactRedux = __webpack_require__(183);
+	
+	var _reactBootstrap = __webpack_require__(294);
+	
+	var _moment = __webpack_require__(586);
+	
+	var _moment2 = _interopRequireDefault(_moment);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var EmptyReward = exports.EmptyReward = function (_Component) {
+	  _inherits(EmptyReward, _Component);
+	
+	  function EmptyReward() {
+	    _classCallCheck(this, EmptyReward);
+	
+	    return _possibleConstructorReturn(this, (EmptyReward.__proto__ || Object.getPrototypeOf(EmptyReward)).apply(this, arguments));
+	  }
+	
+	  _createClass(EmptyReward, [{
+	    key: 'render',
+	    value: function render() {
+	      //let formattedDate = moment(this.props.date).format('ll');
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'EmptyReward' },
+	        _react2.default.createElement(
+	          _reactBootstrap.Jumbotron,
+	          null,
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'container' },
+	            _react2.default.createElement(
+	              'p',
+	              null,
+	              'Uh Oh. There are no rewards for you yet. It looks like you haven’t filled out any surveys…or the business you surveyed isn’t participating yet. In the mean time, try filling out more surveys, and if any of the businesses you already surveyed start participating, you’ll see your reward voucher here.'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return EmptyReward;
+	}(_react.Component);
+	
+	var mapStateToProps = function mapStateToProps(state, props) {
+	  return {
+	    error: state.error
+	  };
+	};
+	
+	var Container = (0, _reactRedux.connect)(mapStateToProps)(EmptyReward);
+	
+	exports.default = Container;
+
+/***/ },
+/* 697 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.Navigation = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -80471,7 +80725,7 @@
 	exports.default = Container;
 
 /***/ },
-/* 697 */
+/* 698 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

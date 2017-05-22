@@ -43,14 +43,14 @@ export class Search extends Component {
         var options = {
              types: ['(cities)'],
              componentRestrictions: {country: 'us'}
-        };    
-        
+        };
+
         var types = document.getElementById('type-selector');
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
         //map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
         console.log("Input : ",input);
-       
+
         var autocomplete = new google.maps.places.Autocomplete(document.getElementById('pac-input'),options);
         //autocomplete.bindTo('bounds', map);
         autocomplete.setOptions({strictBounds: true});
@@ -91,7 +91,7 @@ export class Search extends Component {
           places.nearbySearch(search, function(results, status) {
            if (status === google.maps.places.PlacesServiceStatus.OK) {
             //Clear markers
-              
+
               for (var i = 0; i < markers.length; i++) {
                 if (markers[i]) {
                   markers[i].setMap(null);
@@ -137,7 +137,7 @@ export class Search extends Component {
           }
           });
          //========================================================
-          
+
           /**if (place.geometry.viewport) {
             map.fitBounds(place.geometry.viewport);
           } else {
@@ -170,7 +170,7 @@ export class Search extends Component {
         });
   }
 
-  
+
  // Load the place information into the HTML elements used by the info window.
    buildIWContent(place) {
         document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
